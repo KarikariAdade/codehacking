@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": "C:\\xampp\\htdocs"
+		},
+		{
+			"path": "C:\\Users\\Bizzle\\Desktop\\Vue"
+		}
+	],
+	"settings": {
+		"editor.autoClosingBrackets": "always",
+		"editor.autoClosingQuotes": "always",
+		"editor.defaultFormatter": "vscode.emmet",
+		"editor.foldingStrategy": "indentation",
+		"editor.formatOnPaste": true,
+		"files.autoSave": "afterDelay",
+		"workbench.tree.indent": 10,
+		"zenMode.hideActivityBar": false,
+		"zenMode.hideLineNumbers": false,
+		"zenMode.hideStatusBar": false,
+		"zenMode.hideTabs": false,
+		"[javascript]": {
+			"editor.defaultFormatter": "vscode.typescript-language-features"
+		},
+		"editor.wordWrap": "on"
+	}
+}
