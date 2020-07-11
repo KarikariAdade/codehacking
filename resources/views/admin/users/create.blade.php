@@ -16,11 +16,11 @@
 	@csrf
 	<div class="form-group col-md-6">
 		<label>Name</label>
-		<input type="text" name="name" class="form-control">
+		<input type="text" name="name" class="form-control" value="{{ old('name') }}">
 	</div>
 	<div class="form-group col-md-6" name="email">
 		<label>Email</label>
-		<input type="text" name="email" class="form-control">
+		<input type="text" name="email" class="form-control" value="{{ old('email') }}">
 	</div>
 	<div class="form-group col-md-6">
 		<label>Role</label>
@@ -33,16 +33,16 @@
 	<div class="col-md-6">
 		<label>Status</label>
 		<select class="form-control" name="is_active">
-			<option selected>Choose Status</option>
+			<option selected value="{{ old('is_active') == ''? 'Choose Status' : old('is_active') }}">{{ old('is_active') == ''? 'Choose Status' : old('name') }}</option>
 			<option value="1">Active</option>
 			<option value="0">Inactive</option>
 		</select>
 	</div>
-	<div class="form-group col-md-6 mt-3" name="email">
+	<div class="form-group col-md-6 mt-3">
 		<label>Password</label>
 		<input type="password" name="password" class="form-control">
 	</div>
-	<div class="form-group col-md-6 mt-3" name="email">
+	<div class="form-group col-md-6 mt-3">
 		<label>Profile Image</label>
 		<input type="file" name="file" class="form-control">
 	</div>

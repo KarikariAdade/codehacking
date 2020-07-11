@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Role;
-use App\Http\Requests\UsersRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 class AdminUsersController extends Controller
 {
     public function __construct()
@@ -20,7 +21,7 @@ class AdminUsersController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('admin.users.index', compact('users'));
+        return view('admin/users/index', compact('users'));
     }
 
     /**
@@ -44,10 +45,32 @@ class AdminUsersController extends Controller
 
 
     // INSTEAD OF REQUEST, WE USE THE UsersRequest Class
-    public function store(UsersRequest $request)
+    public function store(Request $request)
     {
-        return $request->all();
+        $validator = Validator::make($request->all(),[
+            'name' => ['required','min: 3'],
+            'password' => ['required', 'min: 8'],
+            'email' => ['required', 'email']
+        ]);
+        $user_email_val = User::where('email', $request->email)->find(1);
+        if ($validator->fails()) {
+           return redirect(url()->previous())->withErrors($validator)->withInput();
+       }elseif ($request->is_active == "Choose Status") {
+           return redirect(url()->previous())->withErrors('Please select your status')->withInput();
+       }elseif (isset($user_email_val->email) && $request->email == $user_email_val->email) {
+           return redirect(url()->previous())->withErrors('Email has already been used')->withInput();
+       }else{
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role_id = $request->role;
+        $user->password = Hash::make($request->password);
+        $user->is_active = $request->is_active;
+        if ($user->save()) {
+            return redirect(url('admin/users'));
+        }   
     }
+}
 
     /**
      * Display the specified resource.

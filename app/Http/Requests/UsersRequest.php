@@ -31,6 +31,7 @@ class UsersRequest extends FormRequest
             'name' => ['required', 'min: 3'],
             'email' => ['required'],
             'password' => ['required']
+            
 
         ];
     }
