@@ -11,7 +11,8 @@
 	border: none !important;
 }
 </style>
-<form method="POST" class="row" action="{{ route('store-admin') }}">
+<form method="POST" class="row" action="{{ route('store-admin') }}" enctype="multipart/form-data">
+	@include('/includes/form-error')
 	@csrf
 	<div class="form-group col-md-6">
 		<label>Name</label>
@@ -40,6 +41,10 @@
 	<div class="form-group col-md-6 mt-3" name="email">
 		<label>Password</label>
 		<input type="password" name="password" class="form-control">
+	</div>
+	<div class="form-group col-md-6 mt-3" name="email">
+		<label>Profile Image</label>
+		<input type="file" name="file" class="form-control">
 	</div>
 	<div class="col-md-12 text-center mt-3">
 		<button class="btn btn-primary" name="create_user">Create User</button>

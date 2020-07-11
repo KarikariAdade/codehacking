@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Role;
+use App\Http\Requests\UsersRequest;
 class AdminUsersController extends Controller
 {
     public function __construct()
@@ -41,11 +42,11 @@ class AdminUsersController extends Controller
      */
 
 
-    
+
     // INSTEAD OF REQUEST, WE USE THE UsersRequest Class
     public function store(UsersRequest $request)
     {
-        return $request;
+        return $request->all();
     }
 
     /**
