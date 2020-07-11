@@ -16,6 +16,7 @@
     <link href="{{ asset('css/metisMenu.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/scripts.js') }}"></script>
