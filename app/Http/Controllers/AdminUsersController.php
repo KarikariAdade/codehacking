@@ -49,7 +49,6 @@ class AdminUsersController extends Controller
     // INSTEAD OF REQUEST, WE USE THE UsersRequest Class
     public function store(UsersRequest $request)
     {
-        
         //Photo validation
         $input = $request->all();
         $user_email_val = User::where('email', $input['email'])->find(1);
@@ -68,9 +67,12 @@ class AdminUsersController extends Controller
 
         //If there is no photo
         $input['password'] = bcrypt($request->password);
+
+        //Check if email entered already exists
         if(!empty($user_email_val) && $input['email'] == $user_email_val->email){
             return redirect(url()->previous())->withErrors('Email has already been used')->withInput();
         }else{
+            //Add to database
             User::create($input);
            return redirect(route('admin-users'));
         }
