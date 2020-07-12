@@ -49,4 +49,12 @@ class User extends Authenticatable
         return $this->belongsTo('App\Photo');
     }
 
+    //isAdmin Middleware, 
+    //This will definately print an error if the user is not registered with a role from the start or registered manually by an admin
+    public function isAdmin(){
+        if($this->role->name == "administrator"){
+            return true;
+        }
+        return false;
+    }
 }

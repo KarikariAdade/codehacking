@@ -17,10 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
+//Create a route group for admin middleware
+Route::group(['middleware'=>'Admin'], function(){
+    
 Route::get('/admin', function(){
     return view('admin.index'); 
 });
@@ -33,4 +32,11 @@ Route::get('admin/users/create', 'AdminUsersController@create')->name('create-ad
 Route::post('admin/users/store', 'AdminUsersController@store')->name('store-admin-users');
 Route::get('admin/users/edit/{id}', 'AdminUsersController@edit')->name('admin-users-edit');
 Route::patch('admin/users/update/{id}', 'AdminUsersController@update')->name('admin-users-update');
+});
+Route::get('errors/404',function(){
+    return view('errors/404');
+})->name('custom404');
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

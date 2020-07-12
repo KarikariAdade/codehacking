@@ -2,8 +2,14 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
+//Import the Auth Facade to validate user role
 
+use Closure;
+// use App\User;
+use Illuminate\Support\Facades\Auth;
+
+//Register this middleware at App/http/kernel
+//you then create a route group at the routes
 class Admin
 {
     /**
@@ -15,6 +21,14 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        //Check auth for user roles
+        // the isAdmin class is from Users Model
+        if(Auth::check()){
+            if(Auth::user()->isAdmin()){
+                return $next($request);
+            }
+        }
+        return redirect(route('custom404'));
+        
     }
 }
