@@ -20,14 +20,16 @@
 	</div>
 	@endif
 	<div class="col-md-8">
-		<form class="row" method="POST" action="{{ route('admin-users-update', $user->id) }}" enctype="multipart/form-data">
+		<form class="row" method="POST" action="{{ route('admin-users-update', $user->id) }}"
+			enctype="multipart/form-data">
 			@include('/includes/form-error')
 			@method('PATCH')
 			@csrf
 			<div class="form-group col-md-6">
 				<input type="hidden" name="id" value="{{ $user->id }}">
 				<label>Name</label>
-				<input type="text" name="name" class="form-control" value="{{ isset($user->name) ?$user->name: old('name') }}">
+				<input type="text" name="name" class="form-control"
+					value="{{ isset($user->name) ?$user->name: old('name') }}">
 			</div>
 			<div class="form-group col-md-6" name="email">
 				<label>Email</label>
@@ -38,7 +40,7 @@
 				<label>Role</label>
 				<select class="form-control" name="role_id">
 					@foreach($roles as $role)
-					<option value="{{ $role->id }}">{{ $role->name }}</option>
+					<option {{($role->id == $user->role_id) ? 'selected' : ''}} value="{{ $role->id }}">{{ $role->name }}</option>
 					@endforeach
 				</select>
 			</div>

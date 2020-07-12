@@ -9,6 +9,8 @@ use App\Photo;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UsersRequest;
+use App\Http\Requests\UsersEditRequest;
+
 class AdminUsersController extends Controller
 {
     public function __construct()
@@ -55,12 +57,12 @@ class AdminUsersController extends Controller
         if ($request->file('photo_id')) {
             $file = $request->file('photo_id');
             //Change File name
-            $name = time().$file->getClientOriginalName();
+            $name = time() . $file->getClientOriginalName();
             //Move file to folder(images) in public folder
             $file->move('images', $name);
 
             //Create in the database
-            $photo = Photo::create(['file'=>$name]);
+            $photo = Photo::create(['file' => $name]);
             $input['photo_id'] = $photo->id;
             // return $input['photo_id'];
         }
@@ -69,41 +71,41 @@ class AdminUsersController extends Controller
         $input['password'] = bcrypt($request->password);
 
         //Check if email entered already exists
-        if(!empty($user_email_val) && $input['email'] == $user_email_val->email){
+        if (!empty($user_email_val) && $input['email'] == $user_email_val->email) {
             return redirect(url()->previous())->withErrors('Email has already been used')->withInput();
-        }else{
+        } else {
             //Add to database
             User::create($input);
-           return redirect(route('admin-users'));
+            return redirect(route('admin-users'));
         }
-        
 
 
 
-    //     $validator = Validator::make($request->all(),[
-    //         'name' => ['required','min: 3'],
-    //         'password' => ['required', 'min: 8'],
-    //         'email' => ['required', 'email']
-    //     ]);
-    //     $user_email_val = User::where('email', $request->email)->find(1);
-    //     if ($validator->fails()) {
-    //        return redirect(url()->previous())->withErrors($validator)->withInput();
-    //    }elseif ($request->is_active == "Choose Status") {
-    //        return redirect(url()->previous())->withErrors('Please select your status')->withInput();
-    //    }elseif (isset($user_email_val->email) && $request->email == $user_email_val->email) {
-    //        return redirect(url()->previous())->withErrors('Email has already been used')->withInput();
-    //    }else{
-    //     $user = new User;
-    //     $user->name = $request->name;
-    //     $user->email = $request->email;
-    //     $user->role_id = $request->role;
-    //     $user->password = Hash::make($request->password);
-    //     $user->is_active = $request->is_active;
-    //     if ($user->save()) {
-    //         return redirect(url('admin/users'));
-    //     }   
-    // }
-}
+
+        //     $validator = Validator::make($request->all(),[
+        //         'name' => ['required','min: 3'],
+        //         'password' => ['required', 'min: 8'],
+        //         'email' => ['required', 'email']
+        //     ]);
+        //     $user_email_val = User::where('email', $request->email)->find(1);
+        //     if ($validator->fails()) {
+        //        return redirect(url()->previous())->withErrors($validator)->withInput();
+        //    }elseif ($request->is_active == "Choose Status") {
+        //        return redirect(url()->previous())->withErrors('Please select your status')->withInput();
+        //    }elseif (isset($user_email_val->email) && $request->email == $user_email_val->email) {
+        //        return redirect(url()->previous())->withErrors('Email has already been used')->withInput();
+        //    }else{
+        //     $user = new User;
+        //     $user->name = $request->name;
+        //     $user->email = $request->email;
+        //     $user->role_id = $request->role;
+        //     $user->password = Hash::make($request->password);
+        //     $user->is_active = $request->is_active;
+        //     if ($user->save()) {
+        //         return redirect(url('admin/users'));
+        //     }   
+        // }
+    }
 
     /**
      * Display the specified resource.
@@ -126,7 +128,7 @@ class AdminUsersController extends Controller
     {
         $user = User::findOrFail($id);
         $roles = Role::all();
-        return view('admin/users/edit', compact('user','roles'));
+        return view('admin/users/edit', compact('user', 'roles'));
     }
 
     /**
@@ -136,9 +138,24 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+
+    //Use UsersRequest class
+    public function update(UsersEditRequest $request, $id)
     {
-        return $request->all();
+        $user = User::findOrFail($id);
+        $input = $request->all();
+
+        if($request->file('photo_id')){
+            $file = $request->file('photo_id');
+            $name = time().$file->getClientOriginalName();
+            $file->move('images', $name);
+            //Add to database. The create should always have array parameters
+            $photo = Photo::create(['file'=>$name]);
+            $input['photo_id'] = $photo->id;
+        }
+        $input['password'] = bcrypt($request->password);
+        $user->update($input);
+        return redirect(route('admin-users'));
     }
 
     /**
