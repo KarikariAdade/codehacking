@@ -11,7 +11,7 @@
 	border: none !important;
 }
 </style>
-<form method="POST" class="row" action="{{ route('store-admin') }}" enctype="multipart/form-data">
+<form method="POST" class="row" action="{{ route('store-admin-users') }}" enctype="multipart/form-data">
 	@include('/includes/form-error')
 	@csrf
 	<div class="form-group col-md-6">
@@ -24,7 +24,7 @@
 	</div>
 	<div class="form-group col-md-6">
 		<label>Role</label>
-		<select class="form-control" name="role">
+		<select class="form-control" name="role_id">
 			@foreach($roles as $role)
 			<option value="{{ $role->id }}">{{ $role->name }}</option>
 			@endforeach
@@ -33,7 +33,7 @@
 	<div class="col-md-6">
 		<label>Status</label>
 		<select class="form-control" name="is_active">
-			<option selected value="{{ old('is_active') == ''? 'Choose Status' : old('is_active') }}">{{ old('is_active') == ''? 'Choose Status' : old('name') }}</option>
+			<option selected value="{{ old('is_active') == ''? 'Choose Status' : old('is_active') }}">{{ old('is_active') == ''? 'Choose Status' : old('is_active') }}</option>
 			<option value="1">Active</option>
 			<option value="0">Inactive</option>
 		</select>
@@ -44,7 +44,7 @@
 	</div>
 	<div class="form-group col-md-6 mt-3">
 		<label>Profile Image</label>
-		<input type="file" name="file" class="form-control">
+		<input type="file" name="photo_id" class="form-control">
 	</div>
 	<div class="col-md-12 text-center mt-3">
 		<button class="btn btn-primary" name="create_user">Create User</button>

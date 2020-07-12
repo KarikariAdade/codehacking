@@ -85,11 +85,8 @@
                                 class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>
                     <li><a href="#" class="menu-toggle"><i class="zmdi zmdi-lock"></i><span>Users</span></a>
                         <ul class="ml-menu">
-                            <li><a href="{{ url('admin/users/create') }}">Add User</a></li>
-                            <li><a href="{{ url('admin/users') }}">View Users</a></li>
-                            <li><a href="#">Edit Profile</a></li>
-                            <li><a href="#">Delete Profile</a></li>
-                            <li><a href="#">Reset Admin Password</a></li>
+                            <li><a href="{{ route('create-admin-users') }}">Add User</a></li>
+                            <li><a href="{{ route('admin-users') }}">View Users</a></li>
                         </ul>
                     </li>
                     <li class="open_top"><a href="#" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Blog
