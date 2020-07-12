@@ -87,6 +87,7 @@
                         <ul class="ml-menu">
                             <li><a href="{{ route('create-admin-users') }}">Add User</a></li>
                             <li><a href="{{ route('admin-users') }}">View Users</a></li>
+                            <li><a>Edit Users</a></li>
                         </ul>
                     </li>
                     <li class="open_top"><a href="#" class="menu-toggle"><i class="zmdi zmdi-assignment"></i><span>Blog
